@@ -25,21 +25,19 @@ passport.use(
 			proxy: true
 		},
 		// add done to tell passpost its completion)
-		(accessToken, refreshToken, profile, done) => {
+		// request api aways return a promise
+		async (accessToken, refreshToken, profile, done) => {
 			// use a promise to return a user model
-			User.findOne({ googleId: profile.id }).then(existingUser => {
-				done(null, profile);
-				// check if the user exsisting.
-				if (existingUser) {
-					// null means no errors.
-					done(null, existingUser);
-				} else {
-					// can't find the google id, add a new user.
-					new User({ googleId: profile.id })
-						.save()
-						.then(user => done(null, user));
-				}
-			});
+			const existingUser = await User.findOne({ googleId: profile.id });
+			// check if the user exsisting.
+			if (existingUser) {
+				// null means no errors.
+				return done(null, existingUser);
+			}
+			// can't find the google id, add a new user.
+			const user = await new User({ googleId: profile.id }).save();
+			//keep 'done' for promise
+			done(null, user);
 		}
 	)
 );
