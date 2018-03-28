@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 // run mongooseJs first then passportJs so the model is defined first and avoid error.
 require('./models/User');
+require('./models/Survey');
+// no need for Recipient.js as it's been imported above
 require('./services/passport');
 
 // mongoose.Promise = global.Promise;
@@ -32,6 +34,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // setting express production routes
 if (process.env.NODE_ENV === 'production') {
