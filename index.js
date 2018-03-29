@@ -53,4 +53,6 @@ if (process.env.NODE_ENV === 'production') {
 // Heroku dynamit port or local machine 5000
 const PORT = process.env.PORT || 5000;
 // express tells node on 5000 port
-app.listen(PORT);
+app.listen(PORT, () => {
+	console.log('Server initiated succesfully');
+});
