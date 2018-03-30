@@ -65,6 +65,7 @@ module.exports = app => {
 
 	app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
 		const { title, subject, body, recipients } = req.body;
+
 		const survey = new Survey({
 			// map(email => ({ email }) === map(email =>{ return {email: email}})
 			title,
