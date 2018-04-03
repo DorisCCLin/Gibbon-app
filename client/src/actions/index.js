@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_SURVEYS } from './types';
+import { FETCH_USER, FETCH_SURVEYS, FETCH_ONE_SURVEY } from './types';
 
 // only one express, we can remove function {} and return syntax
 export const fetchUser = () => async dispatch => {
@@ -24,4 +24,10 @@ export const fetchSurveys = () => async dispatch => {
 	const res = await axios.get('/api/surveys');
 
 	dispatch({ type: FETCH_SURVEYS, payload: res.data });
+};
+
+export const fetchOneSurvey = () => async dispatch => {
+	const res = await axios.get('/api/surveys/:surveyId');
+
+	dispatch({ type: FETCH_ONE_SURVEY, payload: res.data });
 };

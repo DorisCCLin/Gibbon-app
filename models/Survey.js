@@ -8,11 +8,14 @@ const surveySchema = new Schema({
 	body: String,
 	subject: String,
 	recipients: [RecipientSchema],
-	yes: { type: Number, default: 0 },
-	no: { type: Number, default: 0 },
+	one: { type: Number, default: 0 },
+	two: { type: Number, default: 0 },
+	three: { type: Number, default: 0 },
+	four: { type: Number, default: 0 },
+	five: { type: Number, default: 0 },
 	// relationship field using _
 	_user: { type: Schema.Types.ObjectId, ref: 'User' },
-	dateSend: Date,
+	dateSent: Date,
 	lastResponded: Date
 });
 

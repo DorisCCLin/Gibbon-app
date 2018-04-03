@@ -22,6 +22,24 @@ module.exports = app => {
 		res.send('thanks for voting');
 	});
 
+	// app.get('/api/surveys/:surveyId', (req, res) => {
+	// 	const surveyEach = Survey.find({ _id: req.params.id });
+	// 	console.log(surveyEach, req.params.id);
+	// 	res.send(surveyEach);
+	// });
+	// app.param('test', function(req, res, next) {
+	// 	const req.params.surveyId = 'test';
+	// 	console.log(res.params);
+	// 	next();
+	// });
+
+	app.get('/api/surveys/:surveyId', (req, res, next) => {
+		var id = req.params.surveyId;
+		console.log(id);
+		// it gets  params {surveyId: ':surverId'}
+		res.send('Hello World');
+	});
+
 	app.post('/api/surveys/webhooks', (req, res) => {
 		// console.log(req.body);
 		// res.send({});
@@ -91,4 +109,13 @@ module.exports = app => {
 			res.status(422).send(err);
 		}
 	});
+
+	// app.post('/surveys/:id/delete', async (req, res) => {
+	// 	const id = req.params.id;
+	// 	Survey.findByIdAndRemove(req.params.id, function (err, survey) {
+	//          if (err)
+	//          	throw err;
+	//          else
+	//        })
+	// });
 };

@@ -26,4 +26,4 @@ fetchAlbums();
 // killall node
 // "webhook": "./sendgrid_webhook.sh"
 // "dev":
-    //   "concurrently \"npm run server\" \"npm run client\" \"npm run webhook\"",
+//   "concurrently \"npm run server\" \"npm run client\" \"npm run webhook\"",
