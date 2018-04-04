@@ -22,22 +22,13 @@ module.exports = app => {
 		res.send('thanks for voting');
 	});
 
-	// app.get('/api/surveys/:surveyId', (req, res) => {
-	// 	const surveyEach = Survey.find({ _id: req.params.id });
-	// 	console.log(surveyEach, req.params.id);
-	// 	res.send(surveyEach);
-	// });
-	// app.param('test', function(req, res, next) {
-	// 	const req.params.surveyId = 'test';
-	// 	console.log(res.params);
-	// 	next();
-	// });
-
-	app.get('/api/surveys/:surveyId', (req, res, next) => {
-		var id = req.params.surveyId;
-		console.log(id);
-		// it gets  params {surveyId: ':surverId'}
-		res.send('Hello World');
+	app.get('/api/surveys/:surveyId', requireLogin, async (req, res) => {
+		try {
+			const survey = await Survey.findById(req.params.surveyId);
+			res.send(survey);
+		} catch (err) {
+			res.status(422).send(err);
+		}
 	});
 
 	app.post('/api/surveys/webhooks', (req, res) => {
@@ -110,12 +101,12 @@ module.exports = app => {
 		}
 	});
 
-	// app.post('/surveys/:id/delete', async (req, res) => {
-	// 	const id = req.params.id;
-	// 	Survey.findByIdAndRemove(req.params.id, function (err, survey) {
-	//          if (err)
-	//          	throw err;
-	//          else
-	//        })
-	// });
+	app.delete('/api/surveys/:surveyId', (req, res) => {
+		Survey.remove({ _id: req.params.surveyId }, function(err, surveys) {
+			if (err) {
+				res.send(err);
+			}
+			res.json({ message: 'survey has been deleted' });
+		});
+	});
 };

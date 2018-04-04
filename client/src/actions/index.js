@@ -26,8 +26,14 @@ export const fetchSurveys = () => async dispatch => {
 	dispatch({ type: FETCH_SURVEYS, payload: res.data });
 };
 
-export const fetchOneSurvey = () => async dispatch => {
-	const res = await axios.get('/api/surveys/:surveyId');
-
+export const fetchOneSurvey = value => async dispatch => {
+	const res = await axios.get(`/api/surveys/${value}`);
 	dispatch({ type: FETCH_ONE_SURVEY, payload: res.data });
+};
+
+export const deleteSurvey = value => {
+	console.log(value);
+	axios.delete(`/api/surveys/${value}`);
+	console.log('this survey have been deleted ');
+	window.location.reload();
 };

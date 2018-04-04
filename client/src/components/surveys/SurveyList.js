@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSurveys } from '../../actions';
+import { fetchSurveys, fetchOneSurvey, deleteSurvey } from '../../actions';
 import { Link } from 'react-router-dom';
 
 class SurveyList extends Component {
@@ -28,13 +28,17 @@ class SurveyList extends Component {
 						<a>5 Stars: {survey.five}</a>
 
 						<Link
-							to={'surveys/' + survey._id}
+							to={'/surveys/' + survey._id}
 							className="btn waves-effect waves-light right indigo lighten-4"
 						>
-							<i className="Large material-icons blue-text text-darken-2 ">
-								timeline
-							</i>
+							<i className=" material-icons">timeline</i>
 						</Link>
+						<button
+							onClick={() => deleteSurvey(survey._id)}
+							className="btn waves-effect waves-light right red"
+						>
+							<i className="material-icons">delete</i>
+						</button>
 					</div>
 				</div>
 			);
@@ -50,4 +54,8 @@ function mapStateToProps({ surveys }) {
 	return { surveys };
 }
 
-export default connect(mapStateToProps, { fetchSurveys })(SurveyList);
+export default connect(mapStateToProps, {
+	fetchSurveys,
+	fetchOneSurvey,
+	deleteSurvey
+})(SurveyList);
