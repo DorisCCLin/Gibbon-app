@@ -35,13 +35,13 @@ const SurveyFormReview = ({
 				<button
 					className="yellow darken-3 white-text btn-flat"
 					onClick={onCancel}
-					style={{ marginLeft: '10px' }}
 				>
 					Back
 				</button>
 				<button
 					onClick={() => submitSurveyDraft(formValues, history)}
 					className="blue btn-flat right white-text"
+					style={{ marginLeft: '10px' }}
 				>
 					Save
 					<i className="material-icons right">save</i>
