@@ -32,8 +32,24 @@ export const fetchOneSurvey = value => async dispatch => {
 };
 
 export const deleteSurvey = value => {
-	console.log(value);
 	axios.delete(`/api/surveys/${value}`);
 	console.log('this survey have been deleted ');
 	window.location.reload();
+};
+
+export const submitSurveyDraft = values => async dispatch => {
+	const res = await axios.post('/api/surveys/draft', values);
+	dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+export const updateSurveyDraft = (values, id) => async dispatch => {
+	const res = await axios.put(`/api/surveys/${id}`, values);
+	console.log(values);
+	dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+export const submitEditedSurvey = (values, id, history) => async dispatch => {
+	const res = await axios.post(`/api/surveys/${id}`, values);
+	history.push('/surveys');
+	dispatch({ type: FETCH_USER, payload: res.data });
 };

@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Poor+Story');
+
+.header {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.headerLogo {
+	margin-left: 50px;
+	font-family: 'Poor Story', cursive;
+	font-size: 45px;
+}

@@ -9,5 +9,6 @@ export default combineReducers({
 	// form is a key from redux-form
 	form: reduxForm,
 	surveys: surveyReducer,
-	surveyEach: surveyEachReducer
+	surveyEach: surveyEachReducer,
+	surveyEdit: surveyEachReducer
 });

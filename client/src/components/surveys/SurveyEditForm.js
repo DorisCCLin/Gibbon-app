@@ -1,13 +1,20 @@
 // SurveryForm shows a form for a user to add input
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
+import { fetchOneSurvey } from '../../actions';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
 
-class SurveyForm extends Component {
+class SurveyEditForm extends Component {
+	componentDidMount() {
+		const id = window.location.pathname.split('/')[2];
+		this.props.fetchOneSurvey(id);
+	}
+
 	renderFields() {
 		return _.map(formFields, ({ label, name }) => {
 			return (
@@ -51,20 +58,32 @@ class SurveyForm extends Component {
 
 function validate(values) {
 	const errors = {};
-
 	errors.recipients = validateEmails(values.recipients || '');
-
 	_.each(formFields, ({ name }) => {
 		if (!values[name]) {
 			errors[name] = 'You must provide a value';
 		}
 	});
-
 	return errors;
 }
 
+function mapStateToProps(state) {
+	return {
+		surveyEdit: state.surveyEdit,
+		title: state.surveyEdit.title
+	};
+}
+
+SurveyEditForm = connect(mapStateToProps, { fetchOneSurvey })(SurveyEditForm);
+SurveyEditForm = connect(state => ({
+	initialValues: {
+		// title: this.props.surveyEdit.title
+	}
+}))(SurveyEditForm);
+
 export default reduxForm({
 	validate,
-	form: 'surveyForm',
-	destroyOnUnmount: false
-})(SurveyForm);
+	form: 'surveyEditForm',
+	destroyOnUnmount: false,
+	enableReinitialize: true
+})(SurveyEditForm);

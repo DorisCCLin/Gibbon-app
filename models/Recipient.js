@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const schema = mongoose.Schema;
 const { Schema } = mongoose;
 
 const recipientSchema = new Schema({

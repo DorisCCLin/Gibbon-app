@@ -1,0 +1,11 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	/*border: solid 1px red;*/
+}
+
+.titleLine {
+	font-size: 40px;
+	font-weight: lighter;
+	letter-spacing: 1px;
+}

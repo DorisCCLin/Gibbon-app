@@ -32,7 +32,7 @@ module.exports = app => {
 	});
 
 	app.post('/api/surveys/webhooks', (req, res) => {
-		// console.log(req.body);
+		console.log(req.body);
 		// res.send({});
 		const p = new Path('/api/surveys/:surveyId/:choice');
 
@@ -72,6 +72,49 @@ module.exports = app => {
 		res.send({});
 	});
 
+	// create new survey in draft mode
+	app.post('/api/surveys/draft', requireLogin, async (req, res) => {
+		const { title, subject, body, recipients } = req.body;
+		console.log(req.body);
+		const survey = new Survey({
+			title,
+			body,
+			subject,
+			recipients: recipients
+				.split(',')
+				.map(email => ({ email: email.trim() })),
+			_user: req.user.id
+		});
+
+		try {
+			await survey.save();
+			const user = await req.user.save();
+			console.log('the survey has been added');
+			return res.redirect('/api/surveys');
+		} catch (err) {
+			res.status(422).send(err);
+		}
+	});
+
+	// save the draft again
+	app.put('/api/surveys/:surveyId', requireLogin, (req, res) => {
+		const edit = {
+			title: req.body.title,
+			subject: req.body.subject,
+			body: req.body.body,
+			recipients: req.body.recipients
+				.split(',')
+				.map(email => ({ email: email.trim() }))
+		};
+
+		Survey.update({ _id: req.params.surveyId }, edit, function(err, raw) {
+			if (err) {
+				res.send(err);
+			}
+			res.send(raw);
+		});
+	});
+
 	app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
 		const { title, subject, body, recipients } = req.body;
 
@@ -84,7 +127,8 @@ module.exports = app => {
 				.split(',')
 				.map(email => ({ email: email.trim() })),
 			_user: req.user.id,
-			dateSent: Date.now()
+			dateSent: Date.now(),
+			draft: false
 		});
 
 		// send an email
@@ -100,6 +144,54 @@ module.exports = app => {
 			res.status(422).send(err);
 		}
 	});
+
+	// send edited survey out
+	app.post(
+		'/api/surveys/:surveyId',
+		requireLogin,
+		requireCredits,
+		async (req, res) => {
+			const edit = {
+				title: req.body.title,
+				subject: req.body.subject,
+				body: req.body.body,
+				recipients: req.body.recipients
+					.split(',')
+					.map(email => ({ email: email.trim() })),
+				dateSent: Date.now(),
+				draft: false
+			};
+
+			Survey.update({ _id: req.params.surveyId }, edit, function(
+				err,
+				raw
+			) {
+				if (err) {
+					res.send(err);
+				}
+
+				res.send(raw);
+			});
+
+			// const mailer = new Mailer(
+			// 	editedSurvey,
+			// 	surveyTemplate(editedSurvey)
+			// );
+
+			// send an email
+
+			// try {
+			// 	// await editedSurvey.save();
+			// 	// await mailer.send();
+			// 	req.user.credits -= 1;
+			// 	const user = await req.user.save();
+
+			// 	res.send(user);
+			// } catch (err) {
+			// 	res.status(422).send(err);
+			// }
+		}
+	);
 
 	app.delete('/api/surveys/:surveyId', (req, res) => {
 		Survey.remove({ _id: req.params.surveyId }, function(err, surveys) {
