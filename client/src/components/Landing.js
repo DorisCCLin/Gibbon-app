@@ -8,11 +8,11 @@ const Landing = () => {
 			<br />
 
 			<div className="row">
-				<div className="col s6">
-					<img src="/images/gibbon.png" width="600px" />
+				<div className="col s7">
+					<img src="/images/gibbon.png" width="650px" />
 				</div>
 
-				<div className="col s6">
+				<div className="col s5">
 					<div className="logo">Gibbon</div>
 					<div className="tagLine">
 						Collect Feedback INSTANTLY <br />

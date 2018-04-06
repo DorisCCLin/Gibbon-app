@@ -23,27 +23,30 @@ class SurveyForm extends Component {
 	}
 	render() {
 		return (
-			<div>
-				{/*.handleSubmit is from reduxForm method*/}
-				<form
-					onSubmit={this.props.handleSubmit(
-						this.props.onSurveySubmit
-					)}
-				>
-					{this.renderFields()}
-
-					<Link to="/surveys" className="red btn-flat white-text">
-						Cancel
-					</Link>
-
-					<button
-						type="submit"
-						className="teal btn-flat right white-text"
+			<div className="container">
+				<div className="card">
+					{/*.handleSubmit is from reduxForm method*/}
+					<form
+						onSubmit={this.props.handleSubmit(
+							this.props.onSurveySubmit
+						)}
+						style={{ padding: '40px' }}
 					>
-						Next
-						<i className="material-icons right">done</i>
-					</button>
-				</form>
+						{this.renderFields()}
+
+						<Link to="/surveys" className="red btn-flat white-text">
+							Cancel
+						</Link>
+
+						<button
+							type="submit"
+							className="teal btn-flat right white-text"
+						>
+							Next
+							<i className="material-icons right">done</i>
+						</button>
+					</form>
+				</div>
 			</div>
 		);
 	}

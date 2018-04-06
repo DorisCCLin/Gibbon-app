@@ -24,42 +24,48 @@ const SurveyEditFormReview = ({
 	});
 
 	return (
-		<div>
-			<div>This the edit review</div>
-			<h5>Please confirm your entries </h5>
-			{reviewFields}
-			<button
-				className="yellow darken-3 white-text btn-flat"
-				onClick={onCancel}
+		<div className="container">
+			<div
+				className="card"
+				style={{ backgroundColor: 'white', padding: '40px' }}
 			>
-				Back
-			</button>
+				<h5>Please confirm your entries </h5>
+				{reviewFields}
+				<div style={{ marginBottom: '40px' }} />
+				<button
+					className="yellow darken-3 white-text btn-flat"
+					onClick={onCancel}
+				>
+					Back
+				</button>
 
-			<button
-				onClick={() =>
-					updateSurveyDraft(
-						formValues,
-						window.location.pathname.split('/')[2]
-					)
-				}
-				className="blue btn-flat right white-text"
-			>
-				Update
-				<i className="material-icons right">save</i>
-			</button>
-			<button
-				onClick={() =>
-					submitEditedSurvey(
-						formValues,
-						window.location.pathname.split('/')[2],
-						history
-					)
-				}
-				className="green btn-flat right white-text"
-			>
-				Save and Send Survey
-				<i className="material-icons right">email</i>
-			</button>
+				<button
+					onClick={() =>
+						updateSurveyDraft(
+							formValues,
+							window.location.pathname.split('/')[2]
+						)
+					}
+					className="blue btn-flat right white-text"
+					style={{ marginLeft: '10px' }}
+				>
+					Update
+					<i className="material-icons right">save</i>
+				</button>
+				<button
+					onClick={() =>
+						submitEditedSurvey(
+							formValues,
+							window.location.pathname.split('/')[2],
+							history
+						)
+					}
+					className="green btn-flat right white-text"
+				>
+					Save and Send Survey
+					<i className="material-icons right">email</i>
+				</button>
+			</div>
 		</div>
 	);
 };
