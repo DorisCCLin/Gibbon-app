@@ -4,26 +4,37 @@ module.exports = survey => {
 	return `
 	<html>
 	<body>
-	<div style = 'text-align: center;'>
-	<h3>I'd like your input!</h3>
+	<div style = 'text-align: center; background-color: #00bcd4; color: white; padding: 20px;'>
+	<h1>We would like to hear from you</h1>
 
-	<p>Please answer the following question:</p>
-		<p>${survey.body}</p>
-		<div>
-           <a href="${keys.redirectDomain}/api/surveys/${survey.id}/one">1</a>
+	<p style='font-size: 20px;'>Please answer the following question:</p>
+		<div style=
+			'font-size: 30px;'>${survey.body}</div>
+		<br/>	
+		<div style=
+			'font-size: 18px;'>
+         <a href='${keys.redirectDomain}/api/surveys/${
+		survey.id
+	}/five'>Very Good</a> 
+	    <div /> 
+           <a href='${keys.redirectDomain}/api/surveys/${
+		survey.id
+	}/four'>Good</a>
+	<div />          
+           <a href='${keys.redirectDomain}/api/surveys/${
+		survey.id
+	}/three'>Okay</a>
+	    <div /> 
+           <a href='${keys.redirectDomain}/api/surveys/${survey.id}/two'>Bad</a>
+	    <div />          
+           <a href="${keys.redirectDomain}/api/surveys/${
+		survey.id
+	}/one">Very Bad</a>
 		</div>
-		<div>
-           <a href='${keys.redirectDomain}/api/surveys/${survey.id}/two'>2</a>
-		</div>
-		<div>
-           <a href='${keys.redirectDomain}/api/surveys/${survey.id}/three'>3</a>
-		</div>
-		<div>
-           <a href='${keys.redirectDomain}/api/surveys/${survey.id}/four'>4</a>
-		</div>
-		<div>
-           <a href='${keys.redirectDomain}/api/surveys/${survey.id}/five'>5</a>
-		</div>
+		<br/>
+		<br/>
+		<div style=
+			'color: grey; font-size: 13px;'><p>this survey was made with love from <a href='https://gibbonproject.herokuapp.com/'>Gibbon</a></p></div>
     </div>
 	</body>
 	</html>

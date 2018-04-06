@@ -1,0 +1,26 @@
+.surveyQuestion {
+	font-size: 35px;
+	font-weight: lighter;
+	margin-bottom: 20px;
+}
+
+.surveyTitle {
+	font-size: 15px;
+	font-weight: lighter;
+	color: #ffab00;
+}
+
+.surveyDate {
+	font-size: 12px;
+	font-weight: lighter;
+	color: grey;
+	margin-bottom: 30px;
+}
+
+/*.{
+	text-align: center; 
+	background-color: lightgrey;
+	font-size: 25px
+	font-weight:lighter;
+	padding: 20px;
+}*/

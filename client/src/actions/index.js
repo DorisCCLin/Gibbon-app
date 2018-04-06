@@ -37,8 +37,9 @@ export const deleteSurvey = value => {
 	window.location.reload();
 };
 
-export const submitSurveyDraft = values => async dispatch => {
+export const submitSurveyDraft = (values, history) => async dispatch => {
 	const res = await axios.post('/api/surveys/draft', values);
+	history.push('/surveys');
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
 

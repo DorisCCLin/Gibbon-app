@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchOneSurvey } from '../../actions';
 import { Doughnut } from 'react-chartjs-2';
+import '../../style/survey.css';
 
 class SurveyEach extends Component {
 	componentDidMount() {
@@ -10,18 +11,30 @@ class SurveyEach extends Component {
 
 	renderData() {
 		const data = {
-			labels: ['vote1', 'vote2', 'vote3', 'vote4', 'vote5'],
+			labels: ['Very Good', 'Good', 'Okay', 'Bad', 'Very Bad'],
 			datasets: [
 				{
 					data: [
-						this.props.surveyEach.one,
-						this.props.surveyEach.two,
-						this.props.surveyEach.three,
+						this.props.surveyEach.five,
 						this.props.surveyEach.four,
-						this.props.surveyEach.five
+						this.props.surveyEach.three,
+						this.props.surveyEach.two,
+						this.props.surveyEach.one
 					],
-					backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-					hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+					backgroundColor: [
+						'#7BDFF2',
+						'#FF70A6',
+						'#FE621D',
+						'#FFC15E',
+						'#7678ED'
+					],
+					hoverBackgroundColor: [
+						'#7BDFF2',
+						'#FF70A6',
+						'#FE621D',
+						'#FFC15E',
+						'#7678ED'
+					]
 				}
 			]
 		};
@@ -36,66 +49,76 @@ class SurveyEach extends Component {
 
 				<div className="card">
 					<div className="card-content">
-						<div>Survey Title: </div>
-						<div>{this.props.surveyEach.title}</div>
-						<div>Survey Question: </div>
-						<div>{this.props.surveyEach.body}</div>
-						<div>Surveyee Number: </div>
+						<div className="row">
+							<div className="col s2">
+								<div>Survey Title: </div>
+							</div>
+							<div className="col s10">
+								<div>{this.props.surveyEach.title}</div>
+							</div>
+						</div>
+						<div className="row surveyTitle">
+							<div className="col s2">
+								<div>Average Rate: </div>
+							</div>
+							<div className="col s2">
+								<div>
+									{(
+										(this.props.surveyEach.one * 1 +
+											this.props.surveyEach.two * 2 +
+											this.props.surveyEach.three * 3 +
+											this.props.surveyEach.four * 4 +
+											this.props.surveyEach.five * 5) /
+										((this.props.surveyEach.one +
+											this.props.surveyEach.two +
+											this.props.surveyEach.three +
+											this.props.surveyEach.four +
+											this.props.surveyEach.five) *
+											5) *
+										100
+									).toFixed(2)}
+									{' %'}
+								</div>
+							</div>
+
+							<div className="col s2">
+								<div>Total Votes: </div>
+							</div>
+							<div className="col s1">
+								<div>
+									{this.props.surveyEach.one +
+										this.props.surveyEach.two +
+										this.props.surveyEach.three +
+										this.props.surveyEach.four +
+										this.props.surveyEach.five}
+								</div>
+							</div>
+						</div>
+						<div className="row surveyDate">
+							<div className="col s12 right">
+								<div className="right">
+									Last Responded on:{' '}
+									{new Date(
+										this.props.surveyEach.lastResponded
+									).toLocaleDateString()}
+								</div>
+							</div>
+						</div>
 					</div>
 					<div className="card-tabs">
 						<ul className="tabs tabs-fixed-width">
 							<li className="tab">
-								<a href="#test4">Test 1</a>
-							</li>
-							<li className="tab">
-								<a className="" href="#test5">
-									Test 2
-								</a>
-							</li>
-							<li className="tab">
-								<a href="#test6">Test 3</a>
+								<a href="#test4">SURVEY RESULT</a>
 							</li>
 						</ul>
 					</div>
 					<div className="card-content grey lighten-4">
 						<div id="test4">
+							<div className="center surveyQuestion">
+								{this.props.surveyEach.body}
+							</div>
 							<Doughnut data={this.renderData()} />
 						</div>
-						<div id="">Test 2</div>
-						<div id="">Test 3</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col s12">
-						<ul class="tabs">
-							<li class="tab col s3">
-								<a href="#test1">Test 1</a>
-							</li>
-							<li class="tab col s3">
-								<a class="active" href="#test2">
-									Test 2
-								</a>
-							</li>
-							<li class="tab col s3 disabled">
-								<a href="#test3">Disabled Tab</a>
-							</li>
-							<li class="tab col s3">
-								<a href="#test4">Test 4</a>
-							</li>
-						</ul>
-					</div>
-					<div id="test1" class="col s12">
-						Test 1
-					</div>
-					<div id="test2" class="col s12">
-						Test 2
-					</div>
-					<div id="test3" class="col s12">
-						Test 3
-					</div>
-					<div id="test4" class="col s12">
-						Test 4
 					</div>
 				</div>
 			</div>

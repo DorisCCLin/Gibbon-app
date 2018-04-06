@@ -56,21 +56,32 @@ class SurveyList extends Component {
 									draft mode
 								</div>
 							) : (
-								<div className="left amber-text accent-4 col s5 left">
-									Avg. Satisfaction:{' '}
-									{(survey.one * 1 +
-										survey.two * 2 +
-										survey.three * 3 +
-										survey.four * 4 +
-										survey.five * 5) /
-										((survey.one +
-											survey.two +
-											survey.three +
-											survey.four +
-											survey.five) *
-											5) *
-										100}
-									{' %'}
+								<div className="left amber-text accent-4 col s7 left">
+									<div>
+										Avg. Satisfaction:{' '}
+										{(
+											(survey.one * 1 +
+												survey.two * 2 +
+												survey.three * 3 +
+												survey.four * 4 +
+												survey.five * 5) /
+											((survey.one +
+												survey.two +
+												survey.three +
+												survey.four +
+												survey.five) *
+												5) *
+											100
+										).toFixed(2)}
+										{' %'}
+									</div>
+									{survey.one +
+										survey.two +
+										survey.three +
+										survey.four +
+										survey.five}
+									{' responded'}
+									<div />
 								</div>
 							)}
 
